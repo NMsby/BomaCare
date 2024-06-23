@@ -122,7 +122,7 @@
                                             href="{{ route('register') }}"
                                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                         >
-                                            Register
+                                            Sign up
                                         </a>
                                     @endif
                                 @endauth
@@ -413,8 +413,8 @@
                                     Legal
                                 </p>
                                 <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
-                                    <a class="hover:opacity-75" href> Privacy Policy </a>
-                                    <a class="hover:opacity-75" href> Terms &amp; Conditions </a>
+                                    <a class="hover:opacity-75" href=""> Privacy Policy </a>
+                                    <a class="hover:opacity-75" href=""> Terms &amp; Conditions </a>
                                     <a class="hover:opacity-75" href> Returns Policy </a>
                                     <a class="hover:opacity-75" href> Accessibility </a>
                                 </nav>
