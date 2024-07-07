@@ -2,7 +2,7 @@
 
 This is an implementation of the BomaCare website.
 
-* Setup
+# **Setup
 
 To run this project locally clone the repository and in the project directory,run the following commands:
 
