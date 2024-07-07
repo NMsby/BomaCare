@@ -108,8 +108,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="mb-3">
-                                                <img id="showImage" src="{{ (!empty($profileData->photo_path)) ? url(
-                                                    $profileData->photo_path) : url('uploads/profiles/no-profile.png') }}"
+                                                <img id="showImage" src="{{ url('uploads/profiles/no-profile.png') }}"
                                                     alt="profile" class="wd-80 rounded-circle">
                                             </div>
                                         </div>

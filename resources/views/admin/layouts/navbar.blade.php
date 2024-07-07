@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <nav class="navbar">
     <a href="#" class="sidebar-toggler">
         <i data-feather="menu"></i>
@@ -23,13 +24,13 @@
                     </div>
                     <div class="row g-0 p-1">
                         <div class="col-3 text-center">
-                            <a href="pages/apps/chat.html" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="message-square" class="icon-lg mb-1"></i><p class="tx-12">Chat</p></a>
+                            <a href="" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="message-square" class="icon-lg mb-1"></i><p class="tx-12">Chat</p></a>
                         </div>
                         <div class="col-3 text-center">
-                            <a href="pages/apps/calendar.html" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="calendar" class="icon-lg mb-1"></i><p class="tx-12">Calendar</p></a>
+                            <a href="" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="calendar" class="icon-lg mb-1"></i><p class="tx-12">Calendar</p></a>
                         </div>
                         <div class="col-3 text-center">
-                            <a href="pages/email/inbox.html" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="mail" class="icon-lg mb-1"></i><p class="tx-12">Email</p></a>
+                            <a href="" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="mail" class="icon-lg mb-1"></i><p class="tx-12">Email</p></a>
                         </div>
                         <div class="col-3 text-center">
                             <a href="{{ route('admin.profile') }}" class="dropdown-item d-flex flex-column align-items-center justify-content-center wd-70 ht-70"><i data-feather="instagram" class="icon-lg mb-1"></i><p class="tx-12">Profile</p></a>
@@ -100,7 +101,7 @@
                         </a>
                         <a href="" class="dropdown-item d-flex align-items-center py-2">
                             <div class="me-3">
-                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="userr">
+                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="user">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                                 <div class="me-4">
@@ -134,7 +135,7 @@
                                 <i class="icon-sm text-white" data-feather="gift"></i>
                             </div>
                             <div class="flex-grow-1 me-2">
-                                <p>New Order Recieved</p>
+                                <p>New Order Received</p>
                                 <p class="tx-12 text-muted">30 min ago</p>
                             </div>
                         </a>
@@ -180,18 +181,30 @@
                     </div>
                 </div>
             </li>
+
+            @php
+                $id = Auth::id();
+                $profileData = App\Models\User::find($id);
+            @endphp
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="profile">
+                    <img class="wd-30 ht-30 rounded-circle" src="{{ (!empty($profileData->photo_path)) ?
+                                    url($profileData->photo_path) :
+                                    url('uploads/profiles/no-profile.png') }}" alt="profile">
                 </a>
                 <div class="dropdown-menu p-0" aria-labelledby="profileDropdown">
                     <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
                         <div class="mb-3">
-                            <img class="wd-80 ht-80 rounded-circle" src="https://via.placeholder.com/80x80" alt="">
+                            <img class="wd-80 ht-80 rounded-circle" src="{{ (!empty($profileData->photo_path)) ?
+                                    url($profileData->photo_path) :
+                                    url('uploads/profiles/no-profile.png') }}" alt="profile">
                         </div>
                         <div class="text-center">
-                            <p class="tx-16 fw-bolder">Nelson Masbayi</p>
-                            <p class="tx-12 text-muted">nelsonmasbayi@gmail.com</p>
+                            <p class="tx-16 fw-bolder"> {{ (!empty($profileData->first_name && $profileData->last_name)) ?
+                                    $profileData->first_name. " ". $profileData->last_name.  " (". $profileData->username.")" :
+                                     $profileData->username }}</p>
+                            <p class="tx-12 text-muted">{{ $profileData->email }}</p>
                         </div>
                     </div>
                     <ul class="list-unstyled p-1">
@@ -203,14 +216,8 @@
                         </li>
                         <li class="dropdown-item py-2">
                             <a href="" class="text-body ms-0">
-                                <i class="me-2 icon-md" data-feather="edit"></i>
-                                <span>Edit Profile</span>
-                            </a>
-                        </li>
-                        <li class="dropdown-item py-2">
-                            <a href="" class="text-body ms-0">
-                                <i class="me-2 icon-md" data-feather="repeat"></i>
-                                <span>Switch User</span>
+                                <i class="me-2 icon-md" data-feather="lock"></i>
+                                <span>Lock Screen</span>
                             </a>
                         </li>
                         <li class="dropdown-item py-2">

@@ -52,6 +52,7 @@ class AdminController extends Controller
         // Check if the request has a file
         if ($request->hasFile('photo_path')) {
             $file = $request->file('photo_path');
+            @unlink(public_path($profileData->photo_path));
             $filename = date('YmdHis') . '-' . $file->getClientOriginalName();
             $file->move(public_path('uploads/profiles/admin/'), $filename);
             $profileData['photo_path'] = 'uploads/profiles/admin/' . $filename;
