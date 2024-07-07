@@ -6,13 +6,13 @@ This is an implementation of the BomaCare website.
 
 To run this project locally clone the repository and in the project directory,run the following commands:
 
-    $ copy .env.example .env
-    $ composer install
-    $ php artisan key:generate
-    $ php artisan migrate
-    $ npm install
-    $ npm run dev
-    $ php artisan serve
+    copy .env.example .env
+    composer install
+    php artisan key:generate
+    php artisan migrate
+    npm install
+    npm run dev
+    php artisan serve
 
 Technologies Used
 
