@@ -15,10 +15,6 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -27,12 +23,20 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
-//    //Homeowner Dashboard
-//    Route::get('/dashboard', function () {
-//        return view('dashboard');
-//    })->name('dashboard');
-//}); // End Group Homeowner MiddleWare
+// Homeowner Group Middleware
+Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
+    //Homeowner Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+}); // End Group Homeowner MiddleWare
+
+# -------------------------------------------------------------------------------------
+
+
+// Admin Login
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('guest')
+    ->name('admin.login');
 
 // Admin Group Middleware
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
@@ -44,14 +48,23 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])
         ->middleware(['auth', 'verified'])->name('admin.logout');
 
-    // Admin Profile
+    // Admin Profile View
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])
         ->middleware(['auth', 'verified'])->name('admin.profile');
 
     // Admin Profile Update
-    Route::post('/admin/profile/partials/update', [AdminController::class, 'AdminProfileUpdate'])
+    Route::post('/admin/profile/partials/update-profile', [AdminController::class, 'AdminProfileUpdate'])
         ->middleware(['auth', 'verified'])->name('admin.profile.update');
+
+    // Get Admin Password View
+    Route::get('/admin/profile/change-password', [AdminController::class, 'AdminPasswordView'])
+        ->middleware(['auth', 'verified'])->name('admin.profile.change-password');
+    // Admin Update Password
+    Route::post('/admin/profile/update-password', [AdminController::class, 'AdminUpdatePassword'])
+        ->middleware(['auth', 'verified'])->name('admin.profile.update-password');
 }); // End Group Admin Middleware
+
+# --------------------------------------------------------------------------------------------------------------
 
 // Domestic Worker Group Middleware
 Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function () {
@@ -59,7 +72,3 @@ Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function (
     Route::get('/domesticworker/dashboard', [DomesticworkerController::class, 'DomesticworkerDashboard'])
         ->middleware(['auth', 'verified'])->name('domesticworker.dashboard');
 }); // End Group Domestic Worker Middleware
-
-// Admin Login
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('guest')
-    ->name('admin.login');

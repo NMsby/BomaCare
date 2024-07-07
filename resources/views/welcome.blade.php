@@ -30,6 +30,7 @@
 
 {{-- HEADER CONTENT HERE --}}
 <header>
+    @php $profileData = auth()->user(); @endphp
 
     {{-- Banner Section--}}
     <div class="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
@@ -98,14 +99,19 @@
                                         <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                             <span class="absolute -inset-1.5"></span>
                                             <span class="sr-only">Open user menu</span>
-                                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            <img class="h-8 w-8 rounded-full" src="{{ $profileData->photo_path }}" alt="">
                                         </button>
                                     </div>
                                     <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+                                                  this.closest('form').submit();"
+                                                  class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -133,72 +139,15 @@
         </div>
     </nav>
     <div>
-        @if (Route::has('login'))
-            <nav class="-mx-3 flex flex-1 justify-end">
-                @auth
-                    <a
-                        href="{{ url('/dashboard') }}"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                        Dashboard
-                    </a>
-                @else
-                    <a
-                        href="{{ route('login') }}"
-                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                        Log in
-                    </a>
-
-                    @if (Route::has('register'))
-                        <a
-                            href="{{ route('register') }}"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                        >
-                            Register
-                        </a>
-                    @endif
-                @endauth
-            </nav>
-        @endif
     </div>
 </header>
-
-{{--        @if (Route::has('login'))--}}
-{{--            <nav class="-mx-3 flex flex-1 justify-end">--}}
-{{--                @auth--}}
-{{--                    <a--}}
-{{--                        href="{{ url('/dashboard') }}"--}}
-{{--                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"--}}
-{{--                    >--}}
-{{--                        Dashboard--}}
-{{--                    </a>--}}
-{{--                @else--}}
-{{--                    <a--}}
-{{--                        href="{{ route('login') }}"--}}
-{{--                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"--}}
-{{--                    >--}}
-{{--                        Log in--}}
-{{--                    </a>--}}
-
-{{--                    @if (Route::has('register'))--}}
-{{--                        <a--}}
-{{--                            href="{{ route('register') }}"--}}
-{{--                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"--}}
-{{--                        >--}}
-{{--                            Register--}}
-{{--                        </a>--}}
-{{--                    @endif--}}
-{{--                @endauth--}}
-{{--            </nav>--}}
-{{--        @endif--}}
 
 {{-- MAIN CONTENT HERE --}}
 <main>
 
     {{-- Call To Action Here--}}
     <div class="bg-white">
-        <div class="mx-auto max-w-7xl sm:px-6">
+        <div class="my-6 mx-auto max-w-7xl sm:px-6">
             <div class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
                 <svg viewBox="0 0 1024 1024" class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0" aria-hidden="true">
                     <circle cx="512" cy="512" r="512" fill="url(#759c1415-0410-454c-8f7c-9a820de03641)" fill-opacity="0.7" />
