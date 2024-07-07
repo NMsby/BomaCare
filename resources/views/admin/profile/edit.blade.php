@@ -11,7 +11,7 @@
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <div>
                                 <img class="wd-100 rounded-circle" src="{{ (!empty($profileData->photo_path)) ?
-                                    url('uploads/profiles/admin'.$profileData->photo_path) :
+                                    url($profileData->photo_path) :
                                     url('uploads/profiles/no-profile.png') }}" alt="profile"
                                 >
                                 <span class="h4 ms-3">{{ (!empty($profileData->username)) ?
@@ -30,8 +30,8 @@
                         </div>
                         <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase">Phone:</label>
-                            <p class="text-muted">{{ (!empty($profileData->phone)) ?
-                                $profileData->phone : "N/A" }}</p>
+                            <p class="text-muted">{{ (!empty(($profileData->phone_number) )) ?
+                                $profileData->phone_number : "N/A" }}</p>
                         </div>
                         <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase">Address:</label>
@@ -67,7 +67,7 @@
 
                             <h6 class="card-title">Update Admin  Profile</h6>
 
-                            <form method="POST" action="{{ route('admin.profile.update') }}" class="forms-sample" enctype="multipart/form-data">
+                            <form id="profile-update" method="POST" action="{{ route('admin.profile.update') }}" class="forms-sample" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="exampleInputUsername1" class="form-label">Username</label>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPhone1" class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="phone_number" id="exampleInputPhone1" autocomplete="off" value="{{ $profileData->phone }}">
+                                    <input type="text" class="form-control" name="phone_number" id="exampleInputPhone1" autocomplete="off" value="{{ $profileData->phone_number }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputAddress1" class="form-label">Address</label>
@@ -108,7 +108,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="mb-3">
-                                                <img id="showImage" src="{{ (!empty($profileData->photo_path)) ? url('uploads/profiles/admin'.
+                                                <img id="showImage" src="{{ (!empty($profileData->photo_path)) ? url(
                                                     $profileData->photo_path) : url('uploads/profiles/no-profile.png') }}"
                                                     alt="profile" class="wd-80 rounded-circle">
                                             </div>
@@ -119,7 +119,7 @@
                                     <input class="form-control" name="photo_path" type="file" id="image">
                                 </div>
                                 <button type="submit" class="btn btn-success me-2">Update Profile</button>
-                                <button class="btn btn-danger">Cancel</button>
+                                <button class="btn btn-danger" onclick="resetForm()">Cancel</button>
                             </form>
 
                         </div>
@@ -130,7 +130,11 @@
         </div>
     </div>
 
-    <script type="text/javascript">
+    <script type="text/javascript">function resetForm() {
+            document.getElementById('profile-update').reset();
+            $('#showImage').attr('src', "{{ url('uploads/profiles/no-profile.png') }}");
+        }
+
         $(document).ready(function() {
             $('#image').change(function(e) {
                 let reader = new FileReader();

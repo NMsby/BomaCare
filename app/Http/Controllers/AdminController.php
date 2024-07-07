@@ -54,10 +54,18 @@ class AdminController extends Controller
             $file = $request->file('photo_path');
             $filename = date('YmdHis') . '-' . $file->getClientOriginalName();
             $file->move(public_path('uploads/profiles/admin/'), $filename);
-            $profileData['photo_p'] = 'uploads/profiles/admin/' . $filename;
+            $profileData['photo_path'] = 'uploads/profiles/admin/' . $filename;
         } // End If (hasFile)
 
+        // Save the $profileData
         $profileData->save();
-        return redirect()->back()->with('success', 'Profile Updated Successfully');
+
+        // Send notification to the admin with the updated profile
+        $notification = array(
+            'message' => 'Profile Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     } // End Admin Profile Update
 }
