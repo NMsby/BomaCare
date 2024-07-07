@@ -6,8 +6,20 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $role = auth()->user()->role ?? null;
+    if ($role === 'homeowner') {
+        return redirect()->route('dashboard');
+    }
+    elseif ($role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+    elseif ($role === 'domesticworker') {
+        return redirect()->route('domesticworker.dashboard');
+    } else {
+        return view('welcome');
+    }
 });
+
 Route::get('/about', function () {
     return view('about');
 })->name('about');
