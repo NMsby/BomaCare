@@ -3,6 +3,9 @@
 /public/build
 /public/hot
 /public/storage
+/public/uploads/profiles/admin
+/public/uploads/profiles/homeowner
+/public/uploads/profiles/domesticworker
 /storage/*.key
 /vendor
 .env
