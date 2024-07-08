@@ -1,3 +1,4 @@
+// web.php
 <?php
 
 use App\Http\Controllers\AdminController;
@@ -23,6 +24,7 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
@@ -41,10 +43,19 @@ Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-}); // End Group Homeowner MiddleWare
+
+    Route::get('/payments', [PaymentController::class, 'showPaymentForm'])->name('payment');
+    Route::post('/process-payment', [PaymentController::class, 'initiatePayment'])->name('process-payment');
+    Route::get('/payment/callback', [PaymentController::class, 'handleCallback'])->name('callback');
+
+}); // End Group Homeowner Middleware
+
+    Route::get('/success',function(){
+        return view('success');
+    
+    })->name('success');
 
 # -------------------------------------------------------------------------------------
-
 
 // Admin Login
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('guest')
@@ -54,26 +65,27 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     // Admin Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])
-        ->middleware(['auth', 'verified'])->name('admin.dashboard');
+        ->name('admin.dashboard');
 
     // Admin Logout
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])
-        ->middleware(['auth', 'verified'])->name('admin.logout');
+        ->name('admin.logout');
 
     // Admin Profile View
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])
-        ->middleware(['auth', 'verified'])->name('admin.profile');
+        ->name('admin.profile');
 
     // Admin Profile Update
     Route::post('/admin/profile/partials/update-profile', [AdminController::class, 'AdminProfileUpdate'])
-        ->middleware(['auth', 'verified'])->name('admin.profile.update');
+        ->name('admin.profile.update');
 
     // Get Admin Password View
     Route::get('/admin/profile/change-password', [AdminController::class, 'AdminPasswordView'])
-        ->middleware(['auth', 'verified'])->name('admin.profile.change-password');
+        ->name('admin.profile.change-password');
+
     // Admin Update Password
     Route::post('/admin/profile/update-password', [AdminController::class, 'AdminUpdatePassword'])
-        ->middleware(['auth', 'verified'])->name('admin.profile.update-password');
+        ->name('admin.profile.update-password');
 }); // End Group Admin Middleware
 
 # --------------------------------------------------------------------------------------------------------------
@@ -82,5 +94,5 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function () {
     // Domestic Worker Dashboard
     Route::get('/domesticworker/dashboard', [DomesticworkerController::class, 'DomesticworkerDashboard'])
-        ->middleware(['auth', 'verified'])->name('domesticworker.dashboard');
+        ->name('domesticworker.dashboard');
 }); // End Group Domestic Worker Middleware
