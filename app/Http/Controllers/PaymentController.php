@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
     public function showPaymentForm()
     {
-        return view('payments');
+        return view('payments.payments');
     }
 
     
@@ -34,12 +34,11 @@ class PaymentController extends Controller
 
 
     public function initiatePayment(Request $request)
-    {
-
+{
     $access_token = $this->getAccessToken();
 
     $processRequestUrl = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-    $callbackUrl = 'https://1ba1-156-0-232-51.ngrok-free.app';
+    $callbackUrl = 'https://1ba1-156-0-232-51.ngrok-free.app'; // Replace with your actual callback URL
     $passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
     $businessShortCode = '174379';
     $timestamp = now()->format('YmdHis');
@@ -47,7 +46,6 @@ class PaymentController extends Controller
     $password = base64_encode($businessShortCode . $passkey . $timestamp);
     $phone = $request->input('phone');
     $amount = $request->input('amount');
-    // Get values from the request
 
     $partyA = $phone;
     $partyB = '174379';
@@ -70,23 +68,25 @@ class PaymentController extends Controller
         'TransactionDesc' => $transactionDesc,
     ];
 
+    // Make the API request to initiate payment
     $response = Http::withHeaders($stkPushHeader)->post($processRequestUrl, $curlPostData);
-   
 
     $responseData = $response->json();
     $checkoutRequestID = $responseData['CheckoutRequestID'];
     $responseCode = $responseData['ResponseCode'];
 
     if ($responseCode == "0") {
-        // Store the $checkoutRequestID in the cache for 60 minutes (adjust as needed)
-       
-        Cache::put('checkoutRequestID', $checkoutRequestID, now()->addMinutes(30));
+        // Store the $checkoutRequestID in the session for future use
+        session(['checkoutRequestID' => $checkoutRequestID]);
 
-        return redirect()->route('success');
+        // Return a response to indicate success
+        return response()->json(['success' => true]);
     } else {
-        return view('failed', ['message' => 'Payment failed. Please try again.']);
+        // Return a response to indicate failure
+        return response()->json(['success' => false]);
     }
 }
+
 
   
     public function handleCallback()
