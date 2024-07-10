@@ -1,5 +1,11 @@
 # BomaCare
 
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
+
 ## Description
 
 BomaCare is a web application designed to connect homeowners with domestic workers efficiently. Built using Laravel and Jetstream, it provides a platform for job postings, applications, and secure payments via the Daraja API. This project aims to streamline the process of finding domestic help while creating job opportunities for workers.
@@ -15,78 +21,86 @@ BomaCare is a web application designed to connect homeowners with domestic worke
 - MySQL (or any supported database)
 - Ngrok (for local Daraja API testing)
 
-### Installation Steps
+### Installation Steps 
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/NMsby/BomaCare
-   cd bomacare
+```bash
+git clone https://github.com/NMsby/BomaCare
+cd bomacare
+```
 
-Install PHP dependencies:
-bashCopycomposer install
+2. Install PHP dependencies:
+```bash
+composer install
+```
 
-Install and compile frontend assets:
-bashCopynpm install
+3. Install and compile frontend assets:
+```bash
+npm install
 npm run dev
+```
 
-Configure environment:
-bashCopycp .env.example .env
+4. Configure environments:
+```bash
+cp .env.example .env
 php artisan key:generate
+```
 
-Set up database:
-bashCopyphp artisan migrate
+5. Set up database
+```bash
+php artisan migrate
+```
 
-Start the development server:
-bashCopyphp artisan serve
+6. Start the development server:
+```bash
+php artisan serve
+```
 
-(Optional) For Daraja API testing:
-bashCopyngrok http 8000
+7. For Daraja API testing
+```bash
+ngrok http 8000
+```
 
+## Usage Instructions
 
-Usage Instructions
-How to Run
-
+### How to Run
 Ensure the server is running:
-bashCopyphp artisan serve
-
+```bash
+php artisan serve
+```
 Access the application:
 Open http://localhost:8000 in your web browser.
 
-Examples
+## Examples
 
-User Registration:
+### User Registration
 
-Navigate to /register
-Fill in details and select role (Homeowner/Worker)
-Verify email address
+- Navigate to `/register`
+- Fill in details and select role (Homeowner/Worker)
+- Verify email address
 
+### Job Posting (Homeowners):
 
-Job Posting (Homeowners):
+- Go to Dashboard > "Post a Job"
+- Fill in job details and submit
 
-Go to Dashboard > "Post a Job"
-Fill in job details and submit
+### Job Application (Workers):
 
+- Browse available jobs on the dashboard
+- Click "Apply" on suitable listings
 
-Job Application (Workers):
+### Payment Processing:
+- Homeowners can initiate payments from their dashboard
+- Follow Daraja API prompts to complete the transaction
 
-Browse available jobs on the dashboard
-Click "Apply" on suitable listings
+## Input/Output
+- Input: User details, job descriptions, payment information
+- Output: Job listings, application statuses, payment confirmations
 
+## Project Structure
 
-Payment Processing:
-
-Homeowners can initiate payments from their dashboard
-Follow Daraja API prompts to complete transaction
-
-
-
-Input/Output
-
-Input: User details, job descriptions, payment information
-Output: Job listings, application statuses, payment confirmations
-
-Project Structure
-Copybomacare/
+```
+bomacare/
 ├── app/
 │   ├── Http/Controllers/
 │   │   ├── JobController.php
@@ -105,28 +119,32 @@ Copybomacare/
 ├── .env.example
 ├── composer.json
 └── README.md
-Key Files
+```
 
-app/Http/Controllers/JobController.php: Manages job-related operations
-app/Http/Controllers/PaymentController.php: Handles Daraja API integrations
-resources/views/dashboard.blade.php: Main user interface after login
-routes/web.php: Defines web routes for the application
+## Key Files
 
-Additional Information
-Project Status
+- 'app/Http/Controllers/JobController.php': Manages job-related operations
+- 'app/Http/Controllers/PaymentController.php': Handles Daraja API integrations
+- 'resources/views/dashboard.blade.php': Main user interface after login
+- 'routes/web.php': Defines web routes for the application
+
+
+## Additional Information
+
+### Project Status
+
 BomaCare is currently in active development. Core features are implemented, with ongoing work on UI improvements and additional functionalities.
-Known Issues
 
-Occasional delays in payment confirmation
-Limited filtering options for job searches
+### Known Issues
+- Occasional delays in payment confirmation
 
-Acknowledgements
 
-Laravel
-Jetstream
-Daraja API
-Tailwind CSS
-Vue.js
+### Acknowledgements
+- Laravel
+- Jetstream
+- Daraja API
+- Tailwind CSS
+- Vue.js
 
-License
-This project is licensed under the MIT License.
+### Contact us
+If you have a technical question regarding the code please create an issue in this repository. This is the fastest way to reach us.
