@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('service_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image');
-            $table->string('description')->nullable();
-            $table->timestamps();
+            $table->string('service-type_name');
+            $table->string('service-type_description');
+            $table->double('service-type_price', 8, 2)->default(0);
+            $table->string('service-type_image');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
