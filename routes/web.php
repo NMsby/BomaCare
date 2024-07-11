@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\ServiceTypeController;
 use App\Http\Controllers\DomesticworkerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -45,35 +46,62 @@ Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
 
 # -------------------------------------------------------------------------------------
 
-
 // Admin Login
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('guest')
     ->name('admin.login');
 
 // Admin Group Middleware
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    // Admin Dashboard
-    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])
-        ->middleware(['auth', 'verified'])->name('admin.dashboard');
+    Route::controller(AdminController::class)->group(function () {
+        // Admin Dashboard
+        Route::get('/admin/dashboard', 'AdminDashboard')->name('admin.dashboard');
 
-    // Admin Logout
-    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])
-        ->middleware(['auth', 'verified'])->name('admin.logout');
+        # ----------------------------------------------------------------------------------------------
 
-    // Admin Profile View
-    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])
-        ->middleware(['auth', 'verified'])->name('admin.profile');
+        // Admin Lock Screen
+        Route::get('/admin/lockscreen', 'AdminLockScreen')->name('admin.lockscreen');
+        // Admin Lock Screen Unlock
+        Route::post('/admin/unlock', 'AdminUnlockScreen')->name('admin.unlock-screen');
 
-    // Admin Profile Update
-    Route::post('/admin/profile/partials/update-profile', [AdminController::class, 'AdminProfileUpdate'])
-        ->middleware(['auth', 'verified'])->name('admin.profile.update');
+        # -----------------------------------------------------------------------------------------------
 
-    // Get Admin Password View
-    Route::get('/admin/profile/change-password', [AdminController::class, 'AdminPasswordView'])
-        ->middleware(['auth', 'verified'])->name('admin.profile.change-password');
-    // Admin Update Password
-    Route::post('/admin/profile/update-password', [AdminController::class, 'AdminUpdatePassword'])
-        ->middleware(['auth', 'verified'])->name('admin.profile.update-password');
+        // Admin Logout
+        Route::get('/admin/logout', 'AdminLogout')->name('admin.logout');
+
+        // Admin Profile View
+        Route::get('/admin/profile', 'AdminProfile')->name('admin.profile');
+
+        // Admin Profile Update
+        Route::post('/admin/profile/partials/update-profile','AdminProfileUpdate')->name('admin.profile.update');
+
+        // Get Admin Password View
+        Route::get('/admin/profile/change-password','AdminPasswordView')->name('admin.profile.change-password');
+
+        // Admin Update Password
+        Route::post('/admin/profile/update-password','AdminUpdatePassword')->name('admin.profile.update-password');
+    });
+
+    // Service Type Controller
+    Route::controller(ServiceTypeController::class)->group(function () {
+        // Service Type Index
+        Route::get('/admin/service-type/', 'index')->name('service-type.index');
+
+        // Service Type Create
+        Route::get('/admin/service-type/create', 'create')->name('service-type.create');
+
+        // Service Type Store
+        Route::post('/admin/service-type/store', 'store')->name('service-type.store');
+
+        // Service Type Edit
+        Route::get('/admin/service-type/edit/{id}', 'edit')->name('service-type.edit');
+
+        // Service Type Update
+        Route::post('/admin/service-type/update/{id}', 'update')->name('service-type.update');
+
+        // Service Type Delete
+        Route::delete('/admin/service-type/delete/{id}', 'destroy')->name('service-type.delete');
+    });
+
 }); // End Group Admin Middleware
 
 # --------------------------------------------------------------------------------------------------------------

@@ -21275,7 +21275,7 @@ div.tox .btn-group-lg > .btn-icon-text.tox-button .btn-icon-append,
 .auth-page .auth-side-wrapper {
   width: 100%;
   height: 100%;
-  background-image: url(https://via.placeholder.com/219x452);
+  background-image: url();
   background-size: cover;
 }
 
@@ -21466,8 +21466,8 @@ div.apexcharts-canvas .apexcharts-yaxistooltip-left:after {
 }
 div.apexcharts-canvas .apexcharts-tooltip-marker {
   /*rtl:raw:
-  margin-right: 0; 
-  margin-left: 10px; 
+  margin-right: 0;
+  margin-left: 10px;
   */
 }
 
@@ -22326,7 +22326,7 @@ div.tox .tox-dialog__body {
 
 .wizard > .actions {
   /*rtl:raw:
-    text-align: left; 
+    text-align: left;
   */
 }
 

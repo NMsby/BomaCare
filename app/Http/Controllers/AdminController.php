@@ -23,7 +23,7 @@ class AdminController extends Controller
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('admin/login');
+        return redirect('admin/login')->with('success', 'You have been logged out');
     } // End Admin Logout
 
     // Admin Login
@@ -31,6 +31,33 @@ class AdminController extends Controller
     {
         return view('admin.auth.login');
     } // End Admin Login
+
+    // Admin Lock Screen
+    public function AdminLockScreen(): View
+    {
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('admin.auth.lockscreen', compact('profileData'));
+    } // End Admin Lock Screen
+
+    // Admin Unlock Screen
+    public function AdminUnlockScreen(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt(['email' => Auth::user()->email, 'password' => $request->password])) {
+            return redirect()->route('admin.dashboard');
+        } else {
+            $notification = array(
+                'message' => 'Password does not match. Please try again.',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($notification);
+        }
+    } // End Admin Unlock Screen
 
     // Admin Profile
     public function AdminProfile(): View

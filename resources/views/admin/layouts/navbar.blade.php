@@ -53,7 +53,7 @@
                     <div class="p-1">
                         <a href="" class="dropdown-item d-flex align-items-center py-2">
                             <div class="me-3">
-                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="user">
+                                <img class="wd-30 ht-30 rounded-circle" src="" alt="user">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                                 <div class="me-4">
@@ -65,7 +65,7 @@
                         </a>
                         <a href="" class="dropdown-item d-flex align-items-center py-2">
                             <div class="me-3">
-                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="user">
+                                <img class="wd-30 ht-30 rounded-circle" src="" alt="user">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                                 <div class="me-4">
@@ -77,7 +77,7 @@
                         </a>
                         <a href="" class="dropdown-item d-flex align-items-center py-2">
                             <div class="me-3">
-                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="user">
+                                <img class="wd-30 ht-30 rounded-circle" src="" alt="user">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                                 <div class="me-4">
@@ -89,7 +89,7 @@
                         </a>
                         <a href="" class="dropdown-item d-flex align-items-center py-2">
                             <div class="me-3">
-                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="user">
+                                <img class="wd-30 ht-30 rounded-circle" src="" alt="user">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                                 <div class="me-4">
@@ -101,7 +101,7 @@
                         </a>
                         <a href="" class="dropdown-item d-flex align-items-center py-2">
                             <div class="me-3">
-                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="user">
+                                <img class="wd-30 ht-30 rounded-circle" src="" alt="user">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                                 <div class="me-4">
@@ -150,7 +150,7 @@
                         </a>
                         <a href="" class="dropdown-item d-flex align-items-center py-2">
                             <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
-                                <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="user">
+                                <img class="wd-30 ht-30 rounded-circle" src="" alt="user">
                             </div>
                             <div class="flex-grow-1 me-2">
                                 <p>New customer registered</p>
@@ -221,7 +221,7 @@
                             </a>
                         </li>
                         <li class="dropdown-item py-2">
-                            <a href="" class="text-body ms-0">
+                            <a href="{{ route('admin.lockscreen') }}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="lock"></i>
                                 <span>Lock Screen</span>
                             </a>
