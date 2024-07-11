@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\ServiceTypeController;
 use App\Http\Controllers\DomesticworkerController;
 use App\Http\Controllers\HomeownerController;
 use App\Http\Controllers\ProfileController;
@@ -58,19 +59,64 @@ Route::get('/failed', function () {
     return view('payments.failed');
 })->name('failed');
 
-
 // Admin Login
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('guest')->name('admin.login');
 
 // Admin Group Middleware
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
-    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
-    Route::post('/admin/profile/partials/update-profile', [AdminController::class, 'AdminProfileUpdate'])->name('admin.profile.update');
-    Route::get('/admin/profile/change-password', [AdminController::class, 'AdminPasswordView'])->name('admin.profile.change-password');
-    Route::post('/admin/profile/update-password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.profile.update-password');
-});
+    Route::controller(AdminController::class)->group(function () {
+        // Admin Dashboard
+        Route::get('/admin/dashboard', 'AdminDashboard')->name('admin.dashboard');
+
+        # ----------------------------------------------------------------------------------------------
+
+        // Admin Lock Screen
+        Route::get('/admin/lockscreen', 'AdminLockScreen')->name('admin.lockscreen');
+        // Admin Lock Screen Unlock
+        Route::post('/admin/unlock', 'AdminUnlockScreen')->name('admin.unlock-screen');
+
+        # -----------------------------------------------------------------------------------------------
+
+        // Admin Logout
+        Route::get('/admin/logout', 'AdminLogout')->name('admin.logout');
+
+        // Admin Profile View
+        Route::get('/admin/profile', 'AdminProfile')->name('admin.profile');
+
+        // Admin Profile Update
+        Route::post('/admin/profile/partials/update-profile','AdminProfileUpdate')->name('admin.profile.update');
+
+        // Get Admin Password View
+        Route::get('/admin/profile/change-password','AdminPasswordView')->name('admin.profile.change-password');
+
+        // Admin Update Password
+        Route::post('/admin/profile/update-password','AdminUpdatePassword')->name('admin.profile.update-password');
+    });
+
+    // Service Type Controller
+    Route::controller(ServiceTypeController::class)->group(function () {
+        // Service Type Index
+        Route::get('/admin/service-type/', 'index')->name('service-type.index');
+
+        // Service Type Create
+        Route::get('/admin/service-type/create', 'create')->name('service-type.create');
+
+        // Service Type Store
+        Route::post('/admin/service-type/store', 'store')->name('service-type.store');
+
+        // Service Type Edit
+        Route::get('/admin/service-type/edit/{id}', 'edit')->name('service-type.edit');
+
+        // Service Type Update
+        Route::post('/admin/service-type/update/{id}', 'update')->name('service-type.update');
+
+        // Service Type Delete
+        Route::delete('/admin/service-type/delete/{id}', 'destroy')->name('service-type.delete');
+    });
+
+}); // End Group Admin Middleware
+
+# --------------------------------------------------------------------------------------------------------------
 
 // Domestic Worker Group Middleware
 Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function () {

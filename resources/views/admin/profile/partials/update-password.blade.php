@@ -1,5 +1,6 @@
 @extends('admin.dashboard')
 @section('admin-content')
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <div class="page-content">
 
@@ -99,4 +100,5 @@
             <!-- middle wrapper end -->
         </div>
     </div>
+
 @endsection
