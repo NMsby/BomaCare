@@ -32,14 +32,19 @@
                                 @foreach($serviceTypes as $serviceType)
                                     <tr>
                                         <td>{{ $serviceType->id }}</td>
-                                        <td>{{ $serviceType->name }}</td>
-                                        <td>{{ $serviceType->image }}</td>
-                                        <td>{{ $serviceType->description }}</td>
-                                        <td>{{ $serviceType->created_at }}</td>
-                                        <td>{{ $serviceType->updated_at }}</td>
+                                        <td>{{ $serviceType->{'service-type_name'} }}</td>
+                                        <td>
+                                            <img src="{{ (!empty($serviceType->{'service-type_image'})) ? url('uploads/service-types/'.$serviceType->{'service-type_image'}) : url('uploads/service-types/no-image.png') }}" alt="image" class="">
+                                        </td>
+                                        <td>
+                                            {{ $serviceType->{'service-type_description'} }}
+                                        </td>
+                                        <td>{{ $serviceType->created_at->diffForHumans() }}</td>
+                                        <td>{{ $serviceType->updated_at->diffForHumans() }}</td>
                                         <td>
                                             <a href="{{ route('service-type.edit', $serviceType->id) }}" class="btn btn-inverse-warning">Edit</a>
-                                            <a href="{{ route('service-type.destroy', $serviceType->id) }}" class="btn btn-inverse-danger">Delete</a>
+                                            <a href="{{ route('service-type.delete', $serviceType->id) }}" class="btn btn-inverse-danger">Delete</a>
+                                            <a href="{{ route('service-type.show', $serviceType->id) }}" class="btn btn-inverse-info">View</a>
                                         </td>
                                     </tr>
                                 @endforeach

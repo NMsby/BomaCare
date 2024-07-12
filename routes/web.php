@@ -107,6 +107,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
         // Service Type Edit
         Route::get('/admin/service-type/edit/{id}', 'edit')->name('service-type.edit');
 
+        // Service Type Show
+        Route::get('/admin/service-type/show/{id}', 'show')->name('service-type.show');
+
         // Service Type Update
         Route::post('/admin/service-type/update/{id}', 'update')->name('service-type.update');
 
