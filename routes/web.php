@@ -3,18 +3,18 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ServiceTypeController;
 use App\Http\Controllers\DomesticworkerController;
+use App\Http\Controllers\HomeownerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $role = auth()->user()->role ?? null;
     if ($role === 'homeowner') {
         return redirect()->route('dashboard');
-    }
-    elseif ($role === 'admin') {
+    } elseif ($role === 'admin') {
         return redirect()->route('admin.dashboard');
-    }
-    elseif ($role === 'domesticworker') {
+    } elseif ($role === 'domesticworker') {
         return redirect()->route('domesticworker.dashboard');
     } else {
         return view('welcome');
@@ -24,9 +24,14 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+Route::get('/services', function () {
+    return view('services');
+})->name('services');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,17 +43,24 @@ require __DIR__.'/auth.php';
 
 // Homeowner Group Middleware
 Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
-    //Homeowner Dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-}); // End Group Homeowner MiddleWare
+    Route::get('/dashboard', [HomeownerController::class, 'dashboard'])->name('dashboard');
+    Route::get('/payments', [HomeownerController::class, 'showPayments'])->name('payments');
+    Route::post('/process-payment', [PaymentController::class, 'initiatePayment'])->name('process-payment');
+    Route::get('/payment/callback', [PaymentController::class, 'handleCallback'])->name('callback');
+});
 
-# -------------------------------------------------------------------------------------
+// Success route
+Route::get('/success', function () {
+    return view('payments.success');
+})->name('success');
+
+// Failed route
+Route::get('/failed', function () {
+    return view('payments.failed');
+})->name('failed');
 
 // Admin Login
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('guest')
-    ->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->middleware('guest')->name('admin.login');
 
 // Admin Group Middleware
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
@@ -111,7 +123,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
 // Domestic Worker Group Middleware
 Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function () {
-    // Domestic Worker Dashboard
-    Route::get('/domesticworker/dashboard', [DomesticworkerController::class, 'DomesticworkerDashboard'])
-        ->middleware(['auth', 'verified'])->name('domesticworker.dashboard');
-}); // End Group Domestic Worker Middleware
+    Route::get('/domesticworker/dashboard', [DomesticworkerController::class, 'DomesticworkerDashboard'])->name('domesticworker.dashboard');
+    Route::get('/domesticworker/create-job', [DomesticworkerController::class, 'createJob'])->name('domesticworker.create-job');
+    Route::post('/domesticworker/store-job', [DomesticworkerController::class, 'storeJob'])->name('domesticworker.store-job');
+});
