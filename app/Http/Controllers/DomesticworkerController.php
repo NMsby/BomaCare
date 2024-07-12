@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Worker;
-use App\Models\WorkerJob;
+use Illuminate\View\View;
 
 class DomesticworkerController extends Controller
 {
-    public function DomesticworkerDashboard()
+    public function DomesticworkerDashboard(): View
     {
         $worker = Worker::where('user_id', auth()->id())->first();
         $jobs = $worker ? $worker->jobs()->paginate(5) : collect();
