@@ -27,6 +27,12 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+Route::get('/services', function () {
+    return view('services');
+})->name('services');
+Route::get('/pricing', function () {
+    return view('pricing');
+})->name('pricing');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
