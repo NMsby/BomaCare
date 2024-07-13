@@ -75,6 +75,10 @@
     </div>
 </div>
 
+<!-- Sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{ asset('backend/assets/js/code/code.js') }}"></script>
+
 <!-- core:js -->
 <script src="{{ asset('backend/assets/vendors/core/core.js') }}"></script>
 <!-- endinject -->

@@ -43,7 +43,7 @@
                                         <td>{{ $serviceType->updated_at->diffForHumans() }}</td>
                                         <td>
                                             <a href="{{ route('service-type.edit', $serviceType->id) }}" class="btn btn-inverse-warning">Edit</a>
-                                            <a href="{{ route('service-type.delete', $serviceType->id) }}" class="btn btn-inverse-danger">Delete</a>
+                                            <a href="{{ route('service-type.delete', $serviceType->id) }}" class="btn btn-inverse-danger" id="delete">Delete</a>
                                             <a href="{{ route('service-type.show', $serviceType->id) }}" class="btn btn-inverse-info">View</a>
                                         </td>
                                     </tr>

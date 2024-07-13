@@ -11,29 +11,30 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h6 class="card-title">Create a New Job</h6>
+                            <h6 class="card-title">Edit Job</h6>
 
-                            <form id="service-type-create" method="POST" action="{{ route('service-type.store') }}" class="forms-sample" enctype="multipart/form-data">
+                            <form id="service-type-create" method="POST" action="{{ route('service-type.update') }}" class="forms-sample" enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="id" value="{{ $serviceType->id }}">
                                 <div class="mb-3">
                                     <label for="service-type_name" class="form-label">Job Name</label>
-                                    <input type="text" class="form-control @error('service-type_name') is-invalid @enderror" id="service-type_name" name="service-type_name" placeholder="" autocomplete="off" required>
+                                    <input type="text" class="form-control @error('service-type_name') is-invalid @enderror" id="service-type_name" name="service-type_name" value="{{ $serviceType->{'service-type_name'} }}" autocomplete="off" required>
                                     @error('service-type_name')
-                                        <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="service-type_description" class="form-label">Job Description</label>
-                                    <textarea class="form-control @error('service-type_description') is-invalid @enderror" id="service-type_description" name="service-type_description" autocomplete="off" placeholder="" required></textarea>
+                                    <textarea class="form-control @error('service-type_description') is-invalid @enderror" id="service-type_description" name="service-type_description" autocomplete="off" required>{{ $serviceType->{'service-type_description'} }}</textarea>
                                     @error('service-type_description')
-                                        <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="service-type_price" class="form-label">Job Price</label>
-                                    <input type="text" class="form-control @error('service-type_price') is-invalid @enderror" id="service-type_price" name="service-type_price" autocomplete="off" placeholder="" required>
+                                    <input type="text" class="form-control @error('service-type_price') is-invalid @enderror" id="service-type_price" name="service-type_price" value="{{ $serviceType->{'service-type_price'} }}" autocomplete="off" placeholder="" required>
                                     @error('service-type_price')
-                                        <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
@@ -45,8 +46,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="mb-3">
-                                                <img id="showImage" src="{{ url('uploads/service-types/no-image.png') }}"
-                                                     alt="service-type" class="wd-250">
+                                                <img id="showImage" src="{{ url('uploads/service-types/'.$serviceType->{'service-type_image'}) }}"
+                                                     alt="no image" class="wd-250">
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +55,7 @@
                                 <div class="mb-3">
                                     <input class="form-control @error('service-type_image') is-invalid @enderror" name="service-type_image" type="file" id="image" required>
                                     @error('service-type_image')
-                                        <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <button type="submit" class="btn btn-success me-2">Save Changes</button>

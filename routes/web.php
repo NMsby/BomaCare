@@ -105,7 +105,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
         Route::get('/admin/service-type/show/{id}', 'show')->name('service-type.show');
 
         // Service Type Update
-        Route::post('/admin/service-type/update/{id}', 'update')->name('service-type.update');
+        Route::post('/admin/service-type/update', 'update')->name('service-type.update');
 
         // Service Type Delete
         Route::delete('/admin/service-type/delete/{id}', 'destroy')->name('service-type.delete');
@@ -120,4 +120,10 @@ Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function (
     // Domestic Worker Dashboard
     Route::get('/domesticworker/dashboard', [DomesticworkerController::class, 'DomesticworkerDashboard'])
         ->middleware(['auth', 'verified'])->name('domesticworker.dashboard');
+
+    // Job Application
+    Route::get('/domesticworker/jobs/index', [DomesticworkerController::class, 'JobIndex'])
+        ->middleware(['auth', 'verified'])->name('domesticworker.jobs.index');
+
+
 }); // End Group Domestic Worker Middleware
