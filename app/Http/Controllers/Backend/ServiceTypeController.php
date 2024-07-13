@@ -109,10 +109,10 @@ class ServiceTypeController extends Controller
     } // End of Service Type Update
 
     // Service Type Delete
-    public function destroy($id): RedirectResponse
+    public function delete($id): RedirectResponse
     {
         // Delete Service Type
-        ServiceType::findOrFail($id)->destroy($id);
+        ServiceType::findOrFail($id)->delete();
 
         // Notification
         $notification = array(

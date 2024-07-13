@@ -15,6 +15,7 @@
 
                             <form id="service-type-create" method="POST" action="{{ route('service-type.update') }}" class="forms-sample" enctype="multipart/form-data">
                                 @csrf
+                                @method('POST')
                                 <input type="hidden" name="id" value="{{ $serviceType->id }}">
                                 <div class="mb-3">
                                     <label for="service-type_name" class="form-label">Job Name</label>

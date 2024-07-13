@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\ServiceTypeController;
 use App\Http\Controllers\DomesticworkerController;
 use App\Http\Controllers\ProfileController;
@@ -108,7 +109,34 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
         Route::post('/admin/service-type/update', 'update')->name('service-type.update');
 
         // Service Type Delete
-        Route::delete('/admin/service-type/delete/{id}', 'destroy')->name('service-type.delete');
+        Route::get('/admin/service-type/delete/{id}', 'delete')->name('service-type.delete');
+    });
+
+    // Permission Controller
+    Route::controller(RoleController::class)->group(function () {
+        // Permission Index
+        Route::get('/admin/permissions', 'index')->name('permissions.index');
+
+        // Permission Create
+        Route::get('/admin/permissions/create', 'create')->name('permissions.create');
+
+        // Permission Store
+        Route::post('/admin/permissions/store', 'store')->name('permissions.store');
+
+        // Permission Edit
+        Route::get('/admin/permissions/edit/{id}', 'edit')->name('permissions.edit');
+
+        // Permission Update
+        Route::post('/admin/permissions/update', 'update')->name('permissions.update');
+
+        // Permission Delete
+        Route::get('/admin/permissions/delete/{id}', 'delete')->name('permissions.delete');
+
+        // Permission Import
+        Route::get('/admin/permissions/import', 'import')->name('permissions.import');
+
+        // Permission Export
+        Route::get('/admin/permissions/export', 'export')->name('permissions.export');
     });
 
 }); // End Group Admin Middleware

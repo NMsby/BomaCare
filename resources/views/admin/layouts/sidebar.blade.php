@@ -26,36 +26,125 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item nav-category">web apps</li>
+            <li class="nav-item nav-category">Users</li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
+                <a class="nav-link" data-bs-toggle="collapse" href="#admin" role="button" aria-expanded="false" aria-controls="users">
                     <i class="link-icon" data-feather="users"></i>
-                    <span class="link-title">Users</span>
+                    <span class="link-title">Administrators</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="users">
+                <div class="collapse" id="admin">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="" class="nav-link">
 {{--                                <i class="link-icon" data-feather="user-plus"></i>--}}
-                                Add Users
+                                Add Administrator
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">
 {{--                                <i class="link-icon" data-feather="user-check"></i>--}}
-                                Verify Users
+                                Verify Administrators
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">
 {{--                                <i class="link-icon" data-feather="users"></i>--}}
-                                View Users
+                                View Administrators
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#workers" role="button" aria-expanded="false" aria-controls="users">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Domestic Workers</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="workers">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="user-plus"></i>--}}
+                                Add Domestic Worker
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="user-check"></i>--}}
+                                Verify Domestic Workers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="users"></i>--}}
+                                View Domestic Workers
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#owners" role="button" aria-expanded="false" aria-controls="users">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Home Owners</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="owners">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="user-plus"></i>--}}
+                                Add Home Owner
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="user-check"></i>--}}
+                                Verify Home Owners
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="users"></i>--}}
+                                View Home Owners
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#staff" role="button" aria-expanded="false" aria-controls="users">
+                    <i class="link-icon" data-feather="users"></i>
+                    <span class="link-title">Staff</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="staff">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="user-plus"></i>--}}
+                                Add Staff
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="user-check"></i>--}}
+                                Verify Staff
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                {{--                                <i class="link-icon" data-feather="users"></i>--}}
+                                View Staff
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item nav-category">Services</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#jobs" role="button" aria-expanded="false" aria-controls="jobs">
                     <i class="link-icon" data-feather="shopping-cart"></i>
@@ -80,84 +169,142 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a href="" class="nav-link">
-                    <i class="link-icon" data-feather="calendar"></i>
-                    <span class="link-title">Calendar</span>
+                <a class="nav-link" data-bs-toggle="collapse" href="#payments" role="button" aria-expanded="false" aria-controls="payments">
+                    <i class="link-icon" data-feather="credit-card"></i>
+                    <span class="link-title ">Payments</span>
+                    <i class="link-arrow " data-feather="chevron-down"></i>
                 </a>
+                <div class="collapse" id="payments">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">View Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Pending Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Completed Payments</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li class="nav-item nav-category">Components</li>
+
+            <li class="nav-item nav-category">Authentication</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
                     <i class="link-icon" data-feather="feather"></i>
-                    <span class="link-title">UI Kit</span>
+                    <span class="link-title">Roles and Permissions</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse" id="uiComponents">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="" class="nav-link">Accordion</a>
+                            <a href="{{ route('permissions.index') }}" class="nav-link">All Permissions</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">Alerts</a>
+                            <a href="#" class="nav-link">All Roles</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item nav-category">Feedback</li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#feedback" role="button" aria-expanded="false" aria-controls="feedback">
+                    <i class="link-icon" data-feather="message-square"></i>
+                    <span class="link-title ">Reviews</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="feedback">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">View Reviews</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">Badges</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">Breadcrumbs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">Buttons</a>
+                            <a href="#" class="nav-link">Handled Reviews</a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button" aria-expanded="false" aria-controls="advancedUI">
-                    <i class="link-icon" data-feather="anchor"></i>
-                    <span class="link-title">Advanced UI</span>
+                <a class="nav-link" data-bs-toggle="collapse" href="#complaints" role="button" aria-expanded="false" aria-controls="complains">
+                    <i class="link-icon" data-feather="message-square"></i>
+                    <span class="link-title ">Complaints</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="advancedUI">
+                <div class="collapse" id="complaints">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="pages/advanced-ui/cropper.html" class="nav-link">Cropper</a>
+                            <a href="#" class="nav-link">View Complaints</a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/advanced-ui/owl-carousel.html" class="nav-link">Owl carousel</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/advanced-ui/sortablejs.html" class="nav-link">SortableJs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/advanced-ui/sweet-alert.html" class="nav-link">Sweet Alert</a>
+                            <a href="#" class="nav-link">Handled Complaints</a>
                         </li>
                     </ul>
                 </div>
             </li>
+            <li class="nav-item nav-category">Reports</li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#forms" role="button" aria-expanded="false" aria-controls="forms">
-                    <i class="link-icon" data-feather="inbox"></i>
-                    <span class="link-title">Forms</span>
+                <a class="nav-link" data-bs-toggle="collapse" href="#reports" role="button" aria-expanded="false" aria-controls="reports">
+                    <i class="link-icon" data-feather="bar-chart-2"></i>
+                    <span class="link-title ">Statistics</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="forms">
+                <div class="collapse" id="reports">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="pages/forms/basic-elements.html" class="nav-link">Basic Elements</a>
+                            <a href="#" class="nav-link">Domestic Workers</a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/advanced-elements.html" class="nav-link">Advanced Elements</a>
+                            <a href="#" class="nav-link">Home Owners</a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/editors.html" class="nav-link">Editors</a>
+                            <a href="#" class="nav-link">Staff</a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/wizard.html" class="nav-link">Wizard</a>
+                            <a href="#" class="nav-link">Jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Complains</a>
                         </li>
                     </ul>
                 </div>
             </li>
+            <li class="nav-item nav-category">Account</li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#profile" role="button" aria-expanded="false" aria-controls="profile">
+                    <i class="link-icon" data-feather="user"></i>
+                    <span class="link-title">Profile</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="profile">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.profile') }}" class="nav-link">View Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.profile.change-password') }}" class="nav-link">Change Password</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item nav-category">Settings</li>
+            <ul class="nav sub-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">General</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Security</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Privacy</a>
+                </li>
+            </ul>
             <li class="nav-item nav-category">Docs</li>
             <li class="nav-item">
                 <a href="https://github.com/NMsby/BomaCare" target="_blank" class="nav-link">
