@@ -7,103 +7,96 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
-    // Permission Index
-    public function index()
+    // Role Index
+    public function index(): View
     {
-        $permissions = Permission::all();
-        return view('backend.permissions.index', compact('permissions'));
-    }
+        $roles = Role::all();
+        return view('backend.roles.index', compact('roles'));
+    } // End Index
 
-    // Permission Create
-    public function create()
+    // Role Create
+    public function create(): View
     {
-        return view('backend.permissions.create');
-    }
+        return view('backend.roles.create');
+    } // End Create
 
-    // Permission Store
+    // Role Store
     public function store(Request $request): RedirectResponse
     {
-        // Validate the request
+        // Validate Request
         $request->validate([
-            'permission_name' => 'required',
-            'group_name' => 'required',
+            'role_name' => 'required',
         ]);
 
-        // Create a new permission
-        $permission = Permission::create([
-            'name' => $request['permission_name'],
-            'group_name' => $request['group_name'],
+        // Create a new role
+        Role::create([
+            'name' => $request['role_name'],
             'guard_name' => 'web',
         ]);
 
         // Notification
         $notification = array(
-            'message' => 'Permission created successfully',
+            'message' => 'Role created successfully',
             'alert-type' => 'success'
         );
 
         // Redirect to the index page
-        return redirect()->route('permissions.index')->with($notification);
-    }
+        return redirect()->route('roles.index')->with($notification);
 
-    // Permission Edit
-    public function edit($id)
+    } // End Store
+
+    // Role Edit
+    public function edit($id): View
     {
-        $permission = Permission::findorFail($id);
-        return view('backend.permissions.edit', compact('permission'));
-    }
+        $role = Role::findorFail($id);
+        return view('backend.roles.edit', compact('role'));
+    } // End Edit
 
-    // Permission Update
+    // Role Update
     public function update(Request $request): RedirectResponse
     {
-        // Validate the request
+        // Validate Request
         $request->validate([
-            'permission_name' => 'required',
-            'group_name' => 'required',
+            'role_name' => 'required',
         ]);
 
-        // Find the permission by id
-        $permission_id = $request['id'];
+        // Find the role by id
+        $role = Role::findorFail($request['role_id']);
 
-        // Update the permission
-        Permission::findorFail($permission_id)->update([
-            'name' => $request['permission_name'],
-            'group_name' => $request['group_name'],
+        // Update the role
+        $role->update([
+            'name' => $request['role_name'],
         ]);
 
         // Notification
         $notification = array(
-            'message' => 'Permission updated successfully',
+            'message' => 'Role updated successfully',
             'alert-type' => 'success'
         );
 
         // Redirect to the index page
-        return redirect()->route('permissions.index')->with($notification);
-    }
+        return redirect()->route('roles.index')->with($notification);
+    } // End Update
 
-    // Permission Delete
+    // Role Delete
     public function delete($id): RedirectResponse
     {
-        // Delete the permission
-        Permission::findorFail($id)->delete();
+        // Find the role by id
+        $role = Role::findorFail($id);
+
+        // Delete the role
+        $role->delete();
 
         // Notification
         $notification = array(
-            'message' => 'Permission deleted successfully',
+            'message' => 'Role deleted successfully',
             'alert-type' => 'success'
         );
 
         // Redirect to the index page
-        return redirect()->route('permissions.index')->with($notification);
-    }
-
-    // Permission Import
-    public function import(): View
-    {
-        return view('backend.permissions.import');
-    }
+        return redirect()->route('roles.index')->with($notification);
+    } // End Delete
 }

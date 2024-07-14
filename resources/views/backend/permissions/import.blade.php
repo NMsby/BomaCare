@@ -18,12 +18,17 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title mb-4 text-center">Import Permission</h4>
-                            <form class="forms-sample" method="post" action="{{ route('permissions.store') }}">
+                            <form class="forms-sample" method="post" action="{{ route('permissions.upload') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row my-3">
                                     <label for="file" class="col-sm-3 col-form-label">File Import (.xlsx)</label>
                                     <div class="col-sm-9">
-                                        <input type="file" class="form-control" id="file" name="file" required>
+                                        <input type="file" class="form-control @error('import_file') is-invalid @enderror" id="import_file" name="import_file" required>
+                                        @error('import_file')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <button type="submit" class="me-4 btn btn-inverse-success mr-2">Upload</button>

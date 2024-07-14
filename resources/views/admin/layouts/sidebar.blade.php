@@ -26,7 +26,10 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item nav-category">Users</li>
+
+
+            @if(Auth::user()->can('view administrator menu'))
+            <li class="nav-item nav-category">Manage Users</li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#admin" role="button" aria-expanded="false" aria-controls="users">
                     <i class="link-icon" data-feather="users"></i>
@@ -35,20 +38,23 @@
                 </a>
                 <div class="collapse" id="admin">
                     <ul class="nav sub-menu">
+
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('administrators.create') }}" class="nav-link">
 {{--                                <i class="link-icon" data-feather="user-plus"></i>--}}
                                 Add Administrator
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="" class="nav-link">
 {{--                                <i class="link-icon" data-feather="user-check"></i>--}}
                                 Verify Administrators
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('administrators.index') }}" class="nav-link">
 {{--                                <i class="link-icon" data-feather="users"></i>--}}
                                 View Administrators
                             </a>
@@ -56,6 +62,8 @@
                     </ul>
                 </div>
             </li>
+            @endif
+
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#workers" role="button" aria-expanded="false" aria-controls="users">
                     <i class="link-icon" data-feather="users"></i>
@@ -191,18 +199,58 @@
 
             <li class="nav-item nav-category">Authentication</li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
+                <a class="nav-link" data-bs-toggle="collapse" href="#roles" role="button" aria-expanded="false" aria-controls="roles">
                     <i class="link-icon" data-feather="feather"></i>
-                    <span class="link-title">Roles and Permissions</span>
+                    <span class="link-title">Roles</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse" id="uiComponents">
+                <div class="collapse" id="roles">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{ route('permissions.index') }}" class="nav-link">All Permissions</a>
+                            <a href="{{ route('roles.index') }}" class="nav-link">View Roles</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">All Roles</a>
+                            <a href="{{ route('roles.create') }}" class="nav-link">Add Role</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('role-user.index') }}" class="nav-link">Assign Role to User</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#permissions" role="button" aria-expanded="false" aria-controls="permissions">
+                    <i class="link-icon" data-feather="feather"></i>
+                    <span class="link-title">Permissions</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="permissions">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('permissions.index') }}" class="nav-link">View Permissions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('permissions.create') }}" class="nav-link">Add Permission</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Assign Permission to User</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#rolePermissions" role="button" aria-expanded="false" aria-controls="rolePermissions">
+                    <i class="link-icon" data-feather="feather"></i>
+                    <span class="link-title">Role Permissions</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="rolePermissions">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('role-permissions.create') }}" class="nav-link">Assign Permission to Role</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('role-permissions.index') }}" class="nav-link">View Role Permissions</a>
                         </li>
                     </ul>
                 </div>

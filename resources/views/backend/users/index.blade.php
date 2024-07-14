@@ -1,20 +1,16 @@
 @extends('admin.dashboard')
 @section('admin-content')
 
-    <div class="page-content">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <div class="page-content" id="page">
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <a href="" class="me-4 btn btn-inverse-success">Add New User</a>
-                <a href="" class="me-4 btn btn-inverse-info">All Users</a>
-            </ol>
-        </nav>
-
-        <nav class="page-breadcrumb">
-            <ol class="breadcrumb">
-                <a href="" class="me-4 btn btn-inverse-light">Administrators</a>
-                <a href="" class="me-4 btn btn-inverse-light">Domestic Workers</a>
-                <a href="" class="me-4 btn btn-inverse-light">Home Owners</a>
+                <a href="#page" class="me-4 btn btn-inverse-info">All Roles</a>
+                <a href="{{ route('administrators.create') }}" class="me-4 btn btn-inverse-success">Add Admin</a>
             </ol>
         </nav>
 
@@ -22,32 +18,53 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Users Table</h6>
+                        <h4 class="card-title">Administrators</h4>
                         <div class="table-responsive">
-                            <table id="dataTableExample" class="table">
+                            <table class="table table-striped" id="dataTableExample">
                                 <thead>
                                 <tr>
-                                    <th>Job No.</th>
-                                    <th>Job Name</th>
-                                    <th>Job Image</th>
-                                    <th>Job Description</th>
-                                    <th>Created at</th>
-                                    <th>Updated at</th>
-                                    <th>Action</th>
+                                    <th> ID </th>
+                                    <th> Image </th>
+                                    <th> Name </th>
+                                    <th> Role </th>
+                                    <th> Status </th>
+                                    <th> Change </th>
+                                    <th> Action </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($serviceTypes as $serviceType)
+                                @foreach($administrators as $administrator)
                                     <tr>
-                                        <td>{{ $serviceType->id }}</td>
-                                        <td>{{ $serviceType->name }}</td>
-                                        <td>{{ $serviceType->image }}</td>
-                                        <td>{{ $serviceType->description }}</td>
-                                        <td>{{ $serviceType->created_at }}</td>
-                                        <td>{{ $serviceType->updated_at }}</td>
+                                        <td> {{ $administrator->id }} </td>
+                                        <td >
+                                            <img src="{{ (!empty($administrator->photo)) ?
+                                                    url('storage/administrators/'.$administrator->photo) :
+                                                    url('storage/administrators/no-image.png') }}" alt="image"
+                                                 style="width: 70px; height: 40px;">
+                                        </td>
+                                        <td> {{ $administrator->name }} </td>
+                                        <td> {{ $administrator->role }} </td>
                                         <td>
-                                            <a href="{{ route('service-type.edit', $serviceType->id) }}" class="btn btn-inverse-warning">Edit</a>
-                                            <a href="{{ route('service-type.destroy', $serviceType->id) }}" class="btn btn-inverse-danger">Delete</a>
+                                            @if($administrator->status == 'active')
+                                                <span class="badge badge-success">Active</span>
+                                            @else
+                                                <span class="badge badge-danger">Inactive</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <input data-id="{{ $administrator->id }}" class="toggle-class" type="checkbox"
+                                                   data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                   data-on="Active" data-off="Inactive" {{ $administrator->status == 'active' ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('administrators.edit', $administrator->id) }}"
+                                               class="btn btn-inverse-info btn-sm" title="Edit">
+                                                <i data-feather="edit"></i>
+                                            </a>
+                                            <a href="{{ route('administrators.delete', $administrator->id) }}"
+                                               class="btn btn-inverse-danger btn-sm delete" id="delete">
+                                                <i data-feather="trash-2"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -58,7 +75,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 @endsection

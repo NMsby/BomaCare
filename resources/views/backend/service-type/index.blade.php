@@ -1,6 +1,10 @@
 @extends('admin.dashboard')
 @section('admin-content')
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
     <div class="page-content">
 
         <nav class="page-breadcrumb">

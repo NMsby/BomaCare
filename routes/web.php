@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AdminController as BackendAdminController;
+use App\Http\Controllers\Backend\HomeownerController;
+use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\RolePermissionsController;
 use App\Http\Controllers\Backend\ServiceTypeController;
 use App\Http\Controllers\DomesticworkerController;
 use App\Http\Controllers\ProfileController;
@@ -113,30 +117,104 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     });
 
     // Permission Controller
-    Route::controller(RoleController::class)->group(function () {
+    Route::controller(PermissionController::class)->group(function () {
         // Permission Index
         Route::get('/admin/permissions', 'index')->name('permissions.index');
-
         // Permission Create
         Route::get('/admin/permissions/create', 'create')->name('permissions.create');
-
         // Permission Store
         Route::post('/admin/permissions/store', 'store')->name('permissions.store');
-
         // Permission Edit
         Route::get('/admin/permissions/edit/{id}', 'edit')->name('permissions.edit');
-
         // Permission Update
         Route::post('/admin/permissions/update', 'update')->name('permissions.update');
-
         // Permission Delete
         Route::get('/admin/permissions/delete/{id}', 'delete')->name('permissions.delete');
-
         // Permission Import
         Route::get('/admin/permissions/import', 'import')->name('permissions.import');
-
         // Permission Export
         Route::get('/admin/permissions/export', 'export')->name('permissions.export');
+        // Permission Upload
+        Route::post('/admin/permissions/upload', 'upload')->name('permissions.upload');
+    });
+
+    // Role Controller
+    Route::controller(RoleController::class)->group(function () {
+        // Role Index
+        Route::get('/admin/roles', 'index')->name('roles.index');
+        // Role Create
+        Route::get('/admin/roles/create', 'create')->name('roles.create');
+        // Role Store
+        Route::post('/admin/roles/store', 'store')->name('roles.store');
+        // Role Edit
+        Route::get('/admin/roles/edit/{id}', 'edit')->name('roles.edit');
+        // Role Update
+        Route::post('/admin/roles/update', 'update')->name('roles.update');
+        // Role Delete
+        Route::get('/admin/roles/delete/{id}', 'delete')->name('roles.delete');
+        // Role Import
+        Route::get('/admin/roles/import', 'import')->name('roles.import');
+        // Role Export
+        Route::get('/admin/roles/export', 'export')->name('roles.export');
+        // Role Upload
+        Route::post('/admin/roles/upload', 'upload')->name('roles.upload');
+
+        // Role Assign to User
+        Route::get('/admin/roles/assign-to-user/', 'assignToUser')->name('role-user.index');
+    });
+
+    // Role Permissions Controller
+    Route::controller(RolePermissionsController::class)->group(function () {
+        // Role Permissions Index
+        Route::get('/admin/role-permissions', 'index')->name('role-permissions.index');
+        // Role Permissions Create
+        Route::get('/admin/role-permissions/create', 'create')->name('role-permissions.create');
+        // Role Permissions Store
+        Route::post('/admin/role-permissions/store', 'store')->name('role-permissions.store');
+        // Role Permissions Edit
+        Route::get('/admin/role-permissions/edit/{id}', 'edit')->name('role-permissions.edit');
+        // Role Permissions Update
+        Route::post('/admin/role-permissions/update{id}', 'update')->name('role-permissions.update');
+        // Role Permissions Delete
+        Route::get('/admin/role-permissions/delete/{id}', 'delete')->name('role-permissions.delete');
+
+        // Role Permissions Import
+        Route::get('/admin/role-permissions/import', 'import')->name('role-permissions.import');
+        // Role Permissions Export
+        Route::get('/admin/role-permissions/export', 'export')->name('role-permissions.export');
+        // Role Permissions Upload
+        Route::post('/admin/role-permissions/upload', 'upload')->name('role-permissions.upload');
+    });
+
+    // Manage Administrator Controller
+    Route::controller(BackendAdminController::class)->group(function () {
+        Route::get('/admin/administrators', 'index')->name('administrators.index')
+            ->middleware('permission:view administrator menu');
+        Route::get('/admin/administrators/create', 'create')->name('administrators.create');
+        Route::post('/admin/administrators/store', 'store')->name('administrators.store');
+        Route::get('/admin/administrators/edit/{id}', 'edit')->name('administrators.edit');
+        Route::post('/admin/administrators/update{id}', 'update')->name('administrators.update');
+        Route::get('/admin/administrators/delete/{id}', 'delete')->name('administrators.delete');
+    });
+
+    // Manage Domestic Worker Controller
+    Route::controller(DomesticworkerController::class)->group(function () {
+        Route::get('/admin/domestic-workers', 'index')->name('domestic-workers.index');
+        Route::get('/admin/domestic-workers/create', 'create')->name('domestic-workers.create');
+        Route::post('/admin/domestic-workers/store', 'store')->name('domestic-workers.store');
+        Route::get('/admin/domestic-workers/edit/{id}', 'edit')->name('domestic-workers.edit');
+        Route::post('/admin/domestic-workers/update', 'update')->name('domestic-workers.update');
+        Route::get('/admin/domestic-workers/delete/{id}', 'delete')->name('domestic-workers.delete');
+    });
+
+    // Manage Homeowner Controller
+    Route::controller(HomeownerController::class)->group(function () {
+        Route::get('/admin/homeowners', 'index')->name('homeowners.index');
+        Route::get('/admin/homeowners/create', 'create')->name('homeowners.create');
+        Route::post('/admin/homeowners/store', 'store')->name('homeowners.store');
+        Route::get('/admin/homeowners/edit/{id}', 'edit')->name('homeowners.edit');
+        Route::post('/admin/homeowners/update', 'update')->name('homeowners.update');
+        Route::get('/admin/homeowners/delete/{id}', 'delete')->name('homeowners.delete');
     });
 
 }); // End Group Admin Middleware
