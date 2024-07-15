@@ -4,62 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class DomesticworkerController extends Controller
 {
-    // Domesticworker Dashboard
-    public function DomesticworkerDashboard(): View
+    public function show(Request $request): User
     {
-        $id = Auth::user()->id;
-        $profileData = User::find($id);
-        return view('domesticworker.dashboard', compact('profileData'));
+        // return back the user and associated domesticworker model
+        $user = $request->user();
+        $user->load('domesticworker');
+
+        return $user;
     }
 
-    // Domesticworker Profile Page
-    public function DomesticworkerProfile(): View
+    public function update(Request $request)
     {
-        $id = Auth::user()->id;
-        $profileData = User::find($id);
-        return view('domesticworker.profile', compact('profileData'));
-    }
-
-    // Domesticworker Profile Update
-    public function DomesticworkerProfileUpdate(Request $request): \Illuminate\Http\RedirectResponse
-    {
-        $id = Auth::user()->id;
-        $profileData = User::find($id);
-        $profileData->update($request->all());
-        return redirect()->back()->with('success', 'Profile updated successfully');
-    }
-
-    // Domesticworker Update Password
-    public function DomesticworkerUpdatePassword(Request $request): \Illuminate\Http\RedirectResponse
-    {
+        // update the domesticworker model
         $request->validate([
-            'old_password' => 'required',
-            'password' => 'required|confirmed'
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email',
+            'phone_number' => 'required|numeric|min:10',
+            'address' => 'required|string',
+
+            'nationalID' => 'numeric|required_without:passportNo',
+            'passportNo' => 'string|required_without:nationalID',
+            'workPermit' => 'required|mime:pdf|max:2048',
+            'backgroundCheck' => 'required|mime:pdf|max:2048',
+            'medicalCheck' => 'required|mime:pdf|max:2048',
         ]);
 
-        $id = Auth::user()->id;
-        $profileData = User::find($id);
+        $user = $request->user();
 
-        if (Hash::check($request->old_password, $profileData->password)) {
-            $profileData->update(['password' => Hash::make($request->password)]);
-            return redirect()->back()->with('success', 'Password updated successfully');
-        } else {
-            return redirect()->back()->with('error', 'Old password does not match');
-        }
+        $user->update($request->only([
+            'first_name',
+            'last_name',
+            'email',
+            'phone_number',
+            'address',
+        ]));
+
+        // Create or Update a driver associated with this user
+        $user->domesticworker()->updateOrCreate(
+            ['user_id' => $user->id],
+            $request->only([
+                'nationalID',
+                'passportNo',
+                'workPermit',
+                'backgroundCheck',
+                'medicalCheck',
+            ])
+        );
+
+        $user->load('domesticworker');
+
+        return $user;
     }
-
-    // Domesticworker Logout
-    public function DomesticworkerLogout(Request $request): \Illuminate\Http\RedirectResponse
-    {
-        Auth::guard('web')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('login')->with('success', 'You have been logged out');
-    }
-
 }

@@ -30,9 +30,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'login_code',
         'password',
         'remember_token',
     ];
+
+    public function routeNotificationForTwilio(): string
+    {
+        return $this->phone_number;
+    }
 
     public function domesticworker(): HasOne
     {
