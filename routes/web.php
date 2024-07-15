@@ -53,7 +53,14 @@ Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
     Route::get('/payments', [HomeownerController::class, 'showPayments'])->name('payments');
     Route::post('/process-payment', [PaymentController::class, 'initiatePayment'])->name('process-payment');
     Route::get('/payment/callback', [PaymentController::class, 'handleCallback'])->name('callback');
+
+    Route::get('/request-service', [HomeownerController::class, 'requestService'])->name('request.service');
+    Route::post('/request-service', [HomeownerController::class, 'storeServiceRequest'])->name('request.service.store');
+    Route::get('/all-services', [HomeownerController::class, 'allServices'])->name('all.services');
+    Route::get('/reviews', [HomeownerController::class, 'reviews'])->name('reviews');
 });
+
+   
 
 // Success route
 Route::get('/success', function () {
