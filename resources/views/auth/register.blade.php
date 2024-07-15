@@ -2,6 +2,15 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <div class="mt-4">
+            <x-input-label for="role" :value="__('Role')" />
+            <select id="role" name="role" class="block mt-1 w-full" required>
+                <option value="domesticworker">Domestic Worker</option>
+                <option value="homeowner">Home Owner</option>
+            </select>
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+        </div>
+
         <div class="grid grid-cols-2 gap-4">
             <!-- First Name -->
             <div>
