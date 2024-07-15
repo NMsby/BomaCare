@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminController as BackendAdminController;
+use App\Http\Controllers\Domesticworker\ServicesController as DomesticServicesController;
 use App\Http\Controllers\DomesticworkerController;
 use App\Http\Controllers\DomesticworkerController as BackendDomesticworkerController;
 use App\Http\Controllers\Backend\HomeownerController as BackendHomeownerController;
@@ -227,8 +228,8 @@ Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function (
 
         //// Profile Information ///
         // View Profile
-        Route::get('/domesticworker/profile/index', 'ViewProfile')
-            ->name('domesticworker.profile.index');
+        Route::get('/domesticworker/profile/edit', 'ViewProfile')
+            ->name('domesticworker.profile.edit');
         // Update Profile
         Route::get('/domesticworker/profile/update','UpdateProfile')
             ->name('domesticworker.profile.update');
@@ -241,21 +242,25 @@ Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function (
 
         # -------------------------------------------------------------------------------------------
 
-        // View Services Menu
-        Route::get('/domesticworker/services/index', 'ServicesIndex')
-            ->name('domesticworker.services.index');
-        // View Service Details Page
-        Route::get('/domesticworker/services/view/{id}', 'ViewService')
-            ->name('domesticworker.services.view');
-        // Register for a Service
-        Route::get('/domesticworker/services/register/{id}', 'RegisterService')
-            ->name('domesticworker.services.register');
+        // Domesticworker ServicesController
+        Route::controller(DomesticServicesController::class)->group(function() {
+            // View Services Menu
+            Route::get('/domesticworker/services/index', 'index')
+                ->name('domesticworker.services.index');
+            // View Service Details Page
+            Route::get('/domesticworker/services/view/{id}', 'view')
+                ->name('domesticworker.services.view');
+            // Register for a Service
+            Route::get('/domesticworker/services/register/{id}', 'RegisterService')
+                ->name('domesticworker.services.register');
+        });
+
 
         // View Applications Menu
-        Route::get('/domesticworker/applications/index', 'ApplicationsIndex')
+        Route::get('/domesticworker/applications/index', 'index')
             ->name('domesticworker.applications.index');
         // Delete Application
-        Route::get('/domesticworker/applications/delete/{id}', 'DeleteApplication')
+        Route::get('/domesticworker/applications/delete/{id}', 'delete')
             ->name('domesticworker.applications.delete');
 
         # -------------------------------------------------------------------------------------------

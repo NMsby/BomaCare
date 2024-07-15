@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
         } else if($request->user()->role == 'domesticworker'){
             $url = route('domesticworker.dashboard', absolute: false);
         } else {
-            $url = route('dashboard', absolute: false);
+            $url = route('homeowner.dashboard', absolute: false);
         }
 
         return redirect()->intended($url);
