@@ -46,13 +46,13 @@
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item active"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-                <li class="nav-item"><a href="portfolio.html" class="nav-link">Portfolio</a></li>
-                <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Portfolio</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Pricing</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </div>
@@ -63,7 +63,7 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end">
             <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>About us <i class="fa fa-chevron-right"></i></span></p>
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="">Home <i class="fa fa-chevron-right"></i></a></span> <span>About us <i class="fa fa-chevron-right"></i></span></p>
                 <h1 class="mb-0 bread">About Us</h1>
             </div>
         </div>

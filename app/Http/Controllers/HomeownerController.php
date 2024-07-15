@@ -3,31 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
-class DomesticworkerController extends Controller
+class HomeownerController extends Controller
 {
-    // Domesticworker Dashboard
-    public function DomesticworkerDashboard(): View
+    // Homeowner Dashboard
+    public function HomeownerDashboard(): View
     {
         $id = Auth::user()->id;
         $profileData = User::find($id);
-        return view('domesticworker.dashboard', compact('profileData'));
+        return view('homeowner.dashboard', compact('profileData'));
     }
 
-    // Domesticworker Profile Page
-    public function DomesticworkerProfile(): View
+    // Homeowner Profile Page
+    public function HomeownerProfile(): View
     {
         $id = Auth::user()->id;
         $profileData = User::find($id);
-        return view('domesticworker.profile', compact('profileData'));
+        return view('homeowner.profile', compact('profileData'));
     }
 
-    // Domesticworker Profile Update
-    public function DomesticworkerProfileUpdate(Request $request): \Illuminate\Http\RedirectResponse
+    // Homeowner Profile Update
+    public function HomeownerProfileUpdate(Request $request): RedirectResponse
     {
         $id = Auth::user()->id;
         $profileData = User::find($id);
@@ -35,8 +36,8 @@ class DomesticworkerController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
-    // Domesticworker Update Password
-    public function DomesticworkerUpdatePassword(Request $request): \Illuminate\Http\RedirectResponse
+    // Homeowner Update Password
+    public function HomeownerUpdatePassword(Request $request): RedirectResponse
     {
         $request->validate([
             'old_password' => 'required',
@@ -54,8 +55,8 @@ class DomesticworkerController extends Controller
         }
     }
 
-    // Domesticworker Logout
-    public function DomesticworkerLogout(Request $request): \Illuminate\Http\RedirectResponse
+    // Homeowner Logout
+    public function HomeownerLogout(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
         $request->session()->invalidate();
