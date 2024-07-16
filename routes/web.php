@@ -331,6 +331,9 @@ Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
             // Create Booking
             Route::get('/homeowner/bookings/create', 'create')
                 ->name('homeowner.bookings.create');
+            // Store Booking
+            Route::post('/homeowner/bookings/store', 'store')
+                ->name('homeowner.bookings.store');
             // Delete Booking
             Route::get('/homeowner/bookings/delete/{id}', 'delete')
                 ->name('homeowner.bookings.delete');

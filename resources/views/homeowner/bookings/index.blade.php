@@ -1,7 +1,8 @@
 @extends('homeowner.layouts.app')
 @section('content')
     <div class="container mx-auto px-4 py-8">
-        <div class="flex flex-col">
+        <div class="flex flex-col"><h1 class="text-4xl font-bold text-center mb-6">Bookings</h1>
+            <a href="{{ route('homeowner.bookings.create') }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out">Create a Booking</a>
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">

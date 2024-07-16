@@ -11,22 +11,22 @@ use Illuminate\Http\Request;
 class BookingsController extends Controller
 {
     // Show the list of bookings
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $bookings = Booking::where('homeowner_id', auth()->id())->latest()->get();
         return view('homeowner.bookings.index', compact('bookings'));
     }
     // Create a booking
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         $services = ServiceType::all();
-        $domesticworkers = User::where('role', 'domestic_worker')->get();
+        $domestic_workers = User::where('role', 'domestic_worker')->latest()->get();
         $homeowner = auth()->user();
         return view('homeowner.bookings.create',
-            compact('services', 'domesticworkers', 'homeowner'));
+            compact('services', 'domestic_workers', 'homeowner'));
     }
     // Store the booking
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         // Validate the request
         $request->validate([
