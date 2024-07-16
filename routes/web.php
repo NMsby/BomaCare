@@ -10,6 +10,11 @@ use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\RolePermissionsController;
 use App\Http\Controllers\Backend\ServiceTypeController;
+use App\Http\Controllers\Homeowner\ServicesController as HomeownerServicesController;
+use App\Http\Controllers\Homeowner\DomesticworkersController as HomeownerDomesticworkersController;
+use App\Http\Controllers\Homeowner\BookingsController as HomeownerBookingsController;
+use App\Http\Controllers\Homeowner\AppointmentsController as HomeownerAppointmentsController;
+use App\Http\Controllers\Homeowner\PaymentsController as HomeownerPaymentsController;
 use App\Http\Controllers\HomeownerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -42,10 +47,11 @@ Route::get('/pricing', function () {
     return view('pricing');
 })->name('pricing');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth', 'role:homeowner|domesticworker'])
+    ->controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
@@ -224,22 +230,6 @@ Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function (
         Route::get('/domesticworker/dashboard', 'DomesticworkerDashboard')
             ->name('domesticworker.dashboard');
 
-        # ---------------------------------------------------------------------------------------
-
-        //// Profile Information ///
-        // View Profile
-        Route::get('/domesticworker/profile/edit', 'ViewProfile')
-            ->name('domesticworker.profile.edit');
-        // Update Profile
-        Route::get('/domesticworker/profile/update','UpdateProfile')
-            ->name('domesticworker.profile.update');
-        // Change Password View
-        Route::get('/domesticworker/profile/change-password', 'ChangePassword')
-            ->name('domesticworker.profile.change-password');
-        // Update Password
-        Route::get('/domesticworker/profile/update-password', 'UpdatePassword')
-            ->name('domesticworker.profile.update-password');
-
         # -------------------------------------------------------------------------------------------
 
         // Domesticworker ServicesController
@@ -255,6 +245,7 @@ Route::middleware(['auth', 'verified', 'role:domesticworker'])->group(function (
                 ->name('domesticworker.services.register');
         });
 
+        # ----------------------------------------------------------------------------------------
 
         // View Applications Menu
         Route::get('/domesticworker/applications/index', 'index')
@@ -302,82 +293,74 @@ Route::middleware(['auth', 'verified', 'role:homeowner'])->group(function () {
         Route::get('/homeowner/dashboard', 'HomeownerDashboard')
             ->name('homeowner.dashboard');
 
-        # -------------------------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------
 
-        //// Profile Information ///
-        // View Profile
-        Route::get('/homeowner/profile/index', 'ViewProfile')
-            ->name('homeowner.profile.index');
-        // Update Profile
-        Route::get('/homeowner/profile/update', 'UpdateProfile')
-            ->name('homeowner.profile.update');
-        // Change Password View
-        Route::get('/homeowner/profile/change-password', 'ChangePassword')
-            ->name('homeowner.profile.change-password');
-        // Update Password
-        Route::get('/homeowner/profile/update-password', 'UpdatePassword')
-            ->name('homeowner.profile.update-password');
+        // Homeowner ServicesController
+        Route::controller(HomeownerServicesController::class)->group(function() {
+            // View Services Menu
+            Route::get('/homeowner/services/index', 'index')
+                ->name('homeowner.services.index');
+            // View Service Details Page
+            Route::get('/homeowner/services/view/{id}', 'view')
+                ->name('homeowner.services.view');
+            // Book for a Service
+            Route::get('/homeowner/services/book/{id}', 'BookService')
+                ->name('homeowner.services.book');
+        });
 
         # --------------------------------------------------------------------------------------
 
-        // View Services Menu
-        Route::get('/homeowner/services/index', 'ServicesIndex')
-            ->name('homeowner.services.index');
-        // View Service Details Page
-        Route::get('/homeowner/services/view/{id}', 'ViewService')
-            ->name('homeowner.services.view');
-        // Request a Service
-        Route::get('/homeowner/services/request/{id}', 'RequestService')
-            ->name('homeowner.services.request');
-
-        # --------------------------------------------------------------------------------------
-
-        // View Domestic Workers Menu
-        Route::get('/homeowner/domestic-workers/index', 'DomesticWorkersIndex')
-            ->name('homeowner.domestic-workers.index');
-        // View Domestic Worker Details Page
-        Route::get('/homeowner/domestic-workers/view/{id}', 'ViewDomesticWorker')
-            ->name('homeowner.domestic-workers.view');
-        // Hire Domestic Worker
-        Route::get('/homeowner/domestic-workers/hire/{id}', 'HireDomesticWorker')
-            ->name('homeowner.domestic-workers.hire');
+        Route::controller(HomeownerDomesticworkersController::class)->group(function (){
+            // View Domestic Workers Menu
+            Route::get('/homeowner/domestic-workers/index', 'index')
+                ->name('homeowner.domestic-workers.index');
+            // View Domestic Worker Details Page
+            Route::get('/homeowner/domestic-workers/view/{id}', 'view')
+                ->name('homeowner.domestic-workers.view');
+            // Hire Domestic Worker
+            Route::get('/homeowner/domestic-workers/hire/{id}', 'hire')
+                ->name('homeowner.domestic-workers.hire');
+        });
 
         # --------------------------------------------------------------------------------
 
-        // View Bookings
-        Route::get('/homeowner/bookings/index', 'BookingsIndex')
-            ->name('homeowner.bookings.index');
-        // Create Booking
-        Route::get('/homeowner/bookings/create', 'CreateBooking')
-            ->name('homeowner.bookings.create');
-        // Delete Booking
-        Route::get('/homeowner/bookings/delete/{id}', 'DeleteBooking')
-            ->name('homeowner.bookings.delete');
-
+        Route::controller(HomeownerBookingsController::class)->group(function () {
+            // View Bookings
+            Route::get('/homeowner/bookings/index', 'index')
+                ->name('homeowner.bookings.index');
+            // Create Booking
+            Route::get('/homeowner/bookings/create', 'create')
+                ->name('homeowner.bookings.create');
+            // Delete Booking
+            Route::get('/homeowner/bookings/delete/{id}', 'delete')
+                ->name('homeowner.bookings.delete');
+        });
         # --------------------------------------------------------------------------------
 
-        // View Appointments Menu
-        Route::get('/homeowner/appointments/index', 'AppointmentsIndex')
-            ->name('homeowner.appointments.index');
-        // View Appointment Details Page
-        Route::get('/homeowner/appointments/view/{id}', 'ViewAppointment')
-            ->name('homeowner.appointments.view');
-        // Cancel Appointment
-        Route::get('/homeowner/appointments/cancel/{id}', 'CancelAppointment')
-            ->name('homeowner.appointments.cancel');
-
+        Route::controller(HomeownerAppointmentsController::class)->group(function () {
+            // View Appointments Menu
+            Route::get('/homeowner/appointments/index', 'AppointmentsIndex')
+                ->name('homeowner.appointments.index');
+            // View Appointment Details Page
+            Route::get('/homeowner/appointments/view/{id}', 'ViewAppointment')
+                ->name('homeowner.appointments.view');
+            // Cancel Appointment
+            Route::get('/homeowner/appointments/cancel/{id}', 'CancelAppointment')
+                ->name('homeowner.appointments.cancel');
+        });
         # --------------------------------------------------------------------------------
 
-        // View Payments Menu
-        Route::get('/homeowner/payments/index', 'PaymentsIndex')
-            ->name('homeowner.payments.index');
-        // View Payment Details Page
-        Route::get('/homeowner/payments/view/{id}', 'ViewPayment')
-            ->name('homeowner.payments.view');
-        // Make Payment
-        Route::get('/homeowner/payments/make/{id}', 'MakePayment')
-            ->name('homeowner.payments.make');
-
+        Route::controller(HomeownerPaymentsController::class)->group(function () {
+            // View Payments Menu
+            Route::get('/homeowner/payments/index', 'PaymentsIndex')
+                ->name('homeowner.payments.index');
+            // View Payment Details Page
+            Route::get('/homeowner/payments/view/{id}', 'ViewPayment')
+                ->name('homeowner.payments.view');
+            // Make Payment
+            Route::get('/homeowner/payments/make/{id}', 'MakePayment')
+                ->name('homeowner.payments.make');
+        });
     });
 
 }); // End Group Homeowner Middleware
